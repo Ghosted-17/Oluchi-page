@@ -1,0 +1,6 @@
+{
+  "name": "The Multiverse of Oluchi",
+  "description": "A personal portfolio exploring the many versions of Oluchi.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

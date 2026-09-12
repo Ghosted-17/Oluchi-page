@@ -1,31 +1,30 @@
-import type {Metadata} from 'next';
-import { Geist } from 'next/font/google';
-import './globals.css'; // Global styles
-
-const geist = Geist({
-  subsets: ['latin'],
-  display: 'swap',
-});
+// @ts-expect-error CSS side-effect import
+import './globals.css';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'The Multiverse of Oluchi',
-  description: 'A personal portfolio exploring the many versions of Oluchi.',
+  title: "🎀Oluchi's Multiverse🎀",
+  description: "One person, multiple eras.",
   openGraph: {
-    title: 'The Multiverse of Oluchi',
-    description: 'A personal portfolio exploring the many versions of Oluchi.',
-    type: 'website',
+    title: "🎀Oluchi's Multiverse🎀",
+    description: "One person, multiple eras.",
+    type: "website",
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'The Multiverse of Oluchi',
-    description: 'A personal portfolio exploring the many versions of Oluchi.',
+    card: "summary_large_image",
+    title: "🎀Oluchi's Multiverse🎀",
+    description: "One person, multiple eras.",
   },
 };
 
-export default function RootLayout({children}: {children: React.ReactNode}) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en" className={`${geist.className} dark`}>
-      <body className="bg-obsidian text-white antialiased min-h-screen selection:bg-red-primary/30 selection:text-white" suppressHydrationWarning>
+    <html lang="en" className="dark">
+      <body className="bg-[#0D0B0C] text-[#F8F9FA] antialiased min-h-screen selection:bg-[#FF334B] selection:text-white">
         {children}
       </body>
     </html>

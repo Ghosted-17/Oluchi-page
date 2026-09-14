@@ -145,14 +145,14 @@ function ArtistCard({ artist, cardIndex }: { artist: Artist; cardIndex: number }
 export default function ArtistsSection() {
   return (
     <section className="w-full max-w-7xl px-4 py-16">
-      <div className="text-center mb-12 space-y-2">
-        <p className="text-xs uppercase tracking-[0.3em] text-[#FF334B] font-semibold">
-          Heavy Rotation
-        </p>
-        <h2 className="text-3xl md:text-4xl font-extrabold text-[#F8F9FA]">
+      <div className="text-center mb-8 space-y-2 relative z-10">
+        <span className="inline-block text-xs uppercase tracking-[0.35em] text-[#FF334B] font-extrabold px-3 py-1 rounded-full bg-black/60 border border-[#FF334B]/30 backdrop-blur-md shadow-lg">
+          HEAVY ROTATION
+        </span>
+        <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight drop-shadow-[0_3px_8px_rgba(0,0,0,0.95)]">
           Oluchi vibes with these artistes<span className="text-[#FF334B]">.</span>
         </h2>
-        <p className="text-sm text-[#9E9398] max-w-md mx-auto">
+        <p className="text-sm sm:text-base font-medium text-white/90 max-w-md mx-auto drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]">
           The cards auto-cycle through her top picks every minute. Click play on any preview or pick a track manually.
         </p>
       </div>

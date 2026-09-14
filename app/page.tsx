@@ -39,7 +39,7 @@ const VERSIONS: VersionCard[] = [
     description: 'Moves on beat, lives on TikTok, and turns every room into a dance studio. Connect with her now to see her routines and creative content.',
     media: [
       { type: 'video', url: '/videos/dancer.mp4' },
-      { type: 'video', url: '/videos/dancer2.mp4' },
+      { type: 'video', url: '/videos/political.mp4' },
       { type: 'video', url: '/videos/dancer3.mp4' },
     ],
   },

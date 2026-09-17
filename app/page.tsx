@@ -8,6 +8,7 @@ import PassionsDeck from '@/components/PassionsDeck';
 import AmbientBackground from '@/components/AmbientBackground';
 import DailyAffirmation from '@/components/DailyAffirmation';
 import ScratchCard from '@/components/ScratchCard';
+import BirthdayPopup from '@/components/BirthdayPopup';
 
 interface MediaItem {
   type: 'image' | 'video';
@@ -256,6 +257,9 @@ export default function Home() {
     <main className={`min-h-screen ${blaugranaMode ? 'bg-[#060D1E]' : 'bg-[#0D0B0C]'} text-[#F8F9FA] px-4 py-12 md:px-12 flex flex-col items-center relative overflow-hidden transition-colors duration-1000`}>
       {/* Background Video Slideshow */}
       <AmbientBackground />
+
+      {/* Secret Birthday Trigger Popup */}
+      <BirthdayPopup />
 
       {/* Velvet Noir Spotlights */}
       {blaugranaMode ? (

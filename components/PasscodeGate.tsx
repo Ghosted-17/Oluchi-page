@@ -8,7 +8,7 @@ export default function PasscodeGate({ children }: { children: React.ReactNode }
   const [error, setError] = useState(false);
 
   // Set the secret answer here (forced to lowercase for smooth checking)
-  const CORRECT_ANSWER = 'ghost'; // <--- Change this to your special nickname for her!
+  const CORRECT_ANSWER = 'ghosted'; // <--- Change this to your special nickname for her!
 
   useEffect(() => {
     // Check if she already unlocked it previously on this device

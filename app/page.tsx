@@ -9,6 +9,7 @@ import AmbientBackground from '@/components/AmbientBackground';
 import DailyAffirmation from '@/components/DailyAffirmation';
 import ScratchCard from '@/components/ScratchCard';
 import BirthdayPopup from '@/components/BirthdayPopup';
+import PasscodeGate from '@/components/PasscodeGate';
 
 interface MediaItem {
   type: 'image' | 'video';
@@ -254,128 +255,130 @@ export default function Home() {
   };
 
   return (
-    <main className={`min-h-screen ${blaugranaMode ? 'bg-[#060D1E]' : 'bg-[#0D0B0C]'} text-[#F8F9FA] px-4 py-12 md:px-12 flex flex-col items-center relative overflow-hidden transition-colors duration-1000`}>
-      {/* Background Video Slideshow */}
-      <AmbientBackground />
+    <PasscodeGate>
+      <main className={`min-h-screen ${blaugranaMode ? 'bg-[#060D1E]' : 'bg-[#0D0B0C]'} text-[#F8F9FA] px-4 py-12 md:px-12 flex flex-col items-center relative overflow-hidden transition-colors duration-1000`}>
+        {/* Background Video Slideshow */}
+        <AmbientBackground />
 
-      {/* Secret Birthday Trigger Popup */}
-      <BirthdayPopup />
+        {/* Secret Birthday Trigger Popup */}
+        <BirthdayPopup />
 
-      {/* Velvet Noir Spotlights */}
-      {blaugranaMode ? (
-        <>
-          <div className="absolute top-0 left-1/4 w-[500px] h-[400px] bg-[#004D98]/30 blur-[130px] pointer-events-none rounded-full" />
-          <div className="absolute top-10 right-1/4 w-[500px] h-[400px] bg-[#A50044]/35 blur-[130px] pointer-events-none rounded-full" />
-        </>
-      ) : (
-        <>
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-[#E02138]/10 blur-[140px] pointer-events-none rounded-full" />
-          <div className="absolute top-[40%] right-[-10%] w-[450px] h-[450px] bg-[#FF334B]/5 blur-[150px] pointer-events-none rounded-full" />
-        </>
-      )}
+        {/* Velvet Noir Spotlights */}
+        {blaugranaMode ? (
+          <>
+            <div className="absolute top-0 left-1/4 w-[500px] h-[400px] bg-[#004D98]/30 blur-[130px] pointer-events-none rounded-full" />
+            <div className="absolute top-10 right-1/4 w-[500px] h-[400px] bg-[#A50044]/35 blur-[130px] pointer-events-none rounded-full" />
+          </>
+        ) : (
+          <>
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-[#E02138]/10 blur-[140px] pointer-events-none rounded-full" />
+            <div className="absolute top-[40%] right-[-10%] w-[450px] h-[450px] bg-[#FF334B]/5 blur-[150px] pointer-events-none rounded-full" />
+          </>
+        )}
 
-      {/* Culers Easter Egg Banner */}
-      {blaugranaMode && (
-        <div className="fixed top-6 z-50 px-4 py-2 rounded-full bg-gradient-to-r from-[#004D98] to-[#A50044] text-white text-xs font-mono font-bold tracking-widest uppercase shadow-2xl border border-white/20 animate-bounce">
-          🔵🔴 Secret Culers Mode Unlocked 🔵🔴
-        </div>
-      )}
-
-      {/* Header */}
-      <header className="max-w-4xl text-center mb-10 space-y-3 relative z-10">
-        <h1 className="text-4xl md:text-5xl font-black tracking-tight select-none text-white drop-shadow-[0_3px_8px_rgba(0,0,0,0.9)]">
-          <span
-            onClick={handleRibbonTap}
-            className="cursor-pointer inline-block hover:scale-125 active:scale-95 transition-transform mr-1"
-            title="Tap me"
-          >
-            🎀
-          </span>
-          Oluchi&apos;s Multiverse
-          <span
-            onClick={handleRibbonTap}
-            className="cursor-pointer inline-block hover:scale-125 active:scale-95 transition-transform ml-1"
-            title="Tap me"
-          >
-            🎀
-          </span>
-        </h1>
-        <p className="text-[#F0EAEF] text-sm md:text-base max-w-lg mx-auto font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-          One person, multiple eras. Swipe through to see every side of the story.
-        </p>
-      </header>
-
-      {/* Flippable Info Card */}
-      <FlippableBioCard />
-
-      {/* Daily Affirmation Card */}
-      <DailyAffirmation />
-
-      {/* Multiverse Eras Header & Carousel */}
-      <section className="w-full max-w-7xl px-4 py-8 relative z-10">
-        <div className="text-center mb-8 space-y-2">
-          <span className="inline-block text-xs uppercase tracking-[0.35em] text-[#FF334B] font-extrabold px-3.5 py-1 rounded-full bg-black/70 border border-[#FF334B]/40 backdrop-blur-md shadow-lg">
-            THE ERAS & IDENTITIES
-          </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight drop-shadow-[0_3px_8px_rgba(0,0,0,0.95)]">
-            The Multiverse of Oluchi<span className="text-[#FF334B]">.</span>
-          </h2>
-          <p className="text-sm sm:text-base font-medium text-white/90 max-w-md mx-auto drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]">
-            Swipe sideways to explore every distinct version, mood, and era.
-          </p>
-        </div>
-
-        {/* Horizontal Scroll Deck */}
-        <div className="w-full overflow-x-auto no-scrollbar pb-6 pt-2">
-          <div className="flex gap-6 w-max px-2 snap-x snap-mandatory">
-            {VERSIONS.map((card) => (
-              <Card key={card.id} card={card} />
-            ))}
+        {/* Culers Easter Egg Banner */}
+        {blaugranaMode && (
+          <div className="fixed top-6 z-50 px-4 py-2 rounded-full bg-gradient-to-r from-[#004D98] to-[#A50044] text-white text-xs font-mono font-bold tracking-widest uppercase shadow-2xl border border-white/20 animate-bounce">
+            🔵🔴 Secret Culers Mode Unlocked 🔵🔴
           </div>
-        </div>
-      </section>
+        )}
 
-      {/* Daily Alignment Roulette Wheel */}
-      <RouletteWheel />
+        {/* Header */}
+        <header className="max-w-4xl text-center mb-10 space-y-3 relative z-10">
+          <h1 className="text-4xl md:text-5xl font-black tracking-tight select-none text-white drop-shadow-[0_3px_8px_rgba(0,0,0,0.9)]">
+            <span
+              onClick={handleRibbonTap}
+              className="cursor-pointer inline-block hover:scale-125 active:scale-95 transition-transform mr-1"
+              title="Tap me"
+            >
+              🎀
+            </span>
+            Oluchi&apos;s Multiverse
+            <span
+              onClick={handleRibbonTap}
+              className="cursor-pointer inline-block hover:scale-125 active:scale-95 transition-transform ml-1"
+              title="Tap me"
+            >
+              🎀
+            </span>
+          </h1>
+          <p className="text-[#F0EAEF] text-sm md:text-base max-w-lg mx-auto font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+            One person, multiple eras. Swipe through to see every side of the story.
+          </p>
+        </header>
 
-      {/* Secret Scratch Card */}
-      <ScratchCard />
+        {/* Flippable Info Card */}
+        <FlippableBioCard />
 
-      {/* Passions Carousel */}
-      <PassionsDeck onUnlockEasterEgg={() => {
-        setBlaugranaMode(true);
-        fireMultiverseConfetti();
-        setTimeout(() => setBlaugranaMode(false), 8000);
-      }} />
+        {/* Daily Affirmation Card */}
+        <DailyAffirmation />
 
-      {/* Music Section */}
-      <ArtistsSection />
+        {/* Multiverse Eras Header & Carousel */}
+        <section className="w-full max-w-7xl px-4 py-8 relative z-10">
+          <div className="text-center mb-8 space-y-2">
+            <span className="inline-block text-xs uppercase tracking-[0.35em] text-[#FF334B] font-extrabold px-3.5 py-1 rounded-full bg-black/70 border border-[#FF334B]/40 backdrop-blur-md shadow-lg">
+              THE ERAS & IDENTITIES
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight drop-shadow-[0_3px_8px_rgba(0,0,0,0.95)]">
+              The Multiverse of Oluchi<span className="text-[#FF334B]">.</span>
+            </h2>
+            <p className="text-sm sm:text-base font-medium text-white/90 max-w-md mx-auto drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]">
+              Swipe sideways to explore every distinct version, mood, and era.
+            </p>
+          </div>
 
-      {/* Social Links */}
-      <footer className="mt-12 flex flex-col sm:flex-row items-center gap-4 relative z-10">
-        <a
-          href="https://www.tiktok.com/@typical_oluchi"
-          target="_blank"
-          rel="noreferrer"
-          className="px-6 py-3 rounded-full bg-[#1A1618] border border-[#2E2226] hover:border-[#FF334B] hover:text-[#FF334B] transition-all text-sm font-medium tracking-wide flex items-center gap-2 shadow-lg"
-        >
-          <span>TikTok</span>
-          <span className="text-xs text-[#9E9398]">↗</span>
-        </a>
+          {/* Horizontal Scroll Deck */}
+          <div className="w-full overflow-x-auto no-scrollbar pb-6 pt-2">
+            <div className="flex gap-6 w-max px-2 snap-x snap-mandatory">
+              {VERSIONS.map((card) => (
+                <Card key={card.id} card={card} />
+              ))}
+            </div>
+          </div>
+        </section>
 
-        <a
-          href="https://www.snapchat.com/add/typical_oluchi"
-          target="_blank"
-          rel="noreferrer"
-          className="px-6 py-3 rounded-full bg-[#1A1618] border border-[#2E2226] hover:border-[#FF334B] hover:text-[#FF334B] transition-all text-sm font-medium tracking-wide flex items-center gap-2 shadow-lg"
-        >
-          <span>Snapchat</span>
-          <span className="text-xs text-[#9E9398]">↗</span>
-        </a>
-      </footer>
+        {/* Daily Alignment Roulette Wheel */}
+        <RouletteWheel />
 
-      {/* Floating Confetti Cannon */}
-      <ConfettiButton />
-    </main>
+        {/* Secret Scratch Card */}
+        <ScratchCard />
+
+        {/* Passions Carousel */}
+        <PassionsDeck onUnlockEasterEgg={() => {
+          setBlaugranaMode(true);
+          fireMultiverseConfetti();
+          setTimeout(() => setBlaugranaMode(false), 8000);
+        }} />
+
+        {/* Music Section */}
+        <ArtistsSection />
+
+        {/* Social Links */}
+        <footer className="mt-12 flex flex-col sm:flex-row items-center gap-4 relative z-10">
+          <a
+            href="https://www.tiktok.com/@typical_oluchi"
+            target="_blank"
+            rel="noreferrer"
+            className="px-6 py-3 rounded-full bg-[#1A1618] border border-[#2E2226] hover:border-[#FF334B] hover:text-[#FF334B] transition-all text-sm font-medium tracking-wide flex items-center gap-2 shadow-lg"
+          >
+            <span>TikTok</span>
+            <span className="text-xs text-[#9E9398]">↗</span>
+          </a>
+
+          <a
+            href="https://www.snapchat.com/add/typical_oluchi"
+            target="_blank"
+            rel="noreferrer"
+            className="px-6 py-3 rounded-full bg-[#1A1618] border border-[#2E2226] hover:border-[#FF334B] hover:text-[#FF334B] transition-all text-sm font-medium tracking-wide flex items-center gap-2 shadow-lg"
+          >
+            <span>Snapchat</span>
+            <span className="text-xs text-[#9E9398]">↗</span>
+          </a>
+        </footer>
+
+        {/* Floating Confetti Cannon */}
+        <ConfettiButton />
+      </main>
+    </PasscodeGate>
   );
 }

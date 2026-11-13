@@ -31,15 +31,40 @@ const COMPLIMENTS = [
   },
 ];
 
+const BIRTHDAY_COMPLIMENTS = [
+  {
+    tag: 'Level 19 Milestone',
+    message:
+      'Welcome to year 19! May this new chapter bring you endless wins, unbothered peace, and the absolute best memories.',
+  },
+  {
+    tag: 'Main Character Passcode',
+    message:
+      'Officially 19 and completely unstoppable. Keep setting the standard and living life entirely on your own terms.',
+  },
+  {
+    tag: 'Certified Rare Birthday',
+    message:
+      'Another year of unmatched vibes, elite music taste, and iconic laughs. Have the most unforgettable 19th birthday!',
+  },
+];
+
 export default function ScratchCard() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [isRevealed, setIsRevealed] = useState(false);
+  const [birthdayActive, setBirthdayActive] = useState(false);
+  const [activePool, setActivePool] = useState(COMPLIMENTS);
   const [compliment, setCompliment] = useState(COMPLIMENTS[0]);
   const isDrawing = useRef(false);
 
-  // Pick a fresh random compliment on load
+  // Check birthday mode and pick a fresh random note on load
   useEffect(() => {
-    const randomItem = COMPLIMENTS[Math.floor(Math.random() * COMPLIMENTS.length)];
+    const isBday = localStorage.getItem('oluchi_birthday_active') === 'true';
+    setBirthdayActive(isBday);
+    const pool = isBday ? BIRTHDAY_COMPLIMENTS : COMPLIMENTS;
+    setActivePool(pool);
+
+    const randomItem = pool[Math.floor(Math.random() * pool.length)];
     setCompliment(randomItem);
   }, []);
 
@@ -53,18 +78,24 @@ export default function ScratchCard() {
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
 
-    // Velvet Noir metallic foil gradient
+    // Metallic foil gradient (Gold accents for birthday, Velvet Noir otherwise)
     const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-    gradient.addColorStop(0, '#2E2226');
-    gradient.addColorStop(0.5, '#402B30');
-    gradient.addColorStop(1, '#1A1618');
+    if (birthdayActive) {
+      gradient.addColorStop(0, '#3A2E16');
+      gradient.addColorStop(0.5, '#59441F');
+      gradient.addColorStop(1, '#1A1618');
+    } else {
+      gradient.addColorStop(0, '#2E2226');
+      gradient.addColorStop(0.5, '#402B30');
+      gradient.addColorStop(1, '#1A1618');
+    }
 
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Decorative foil text
     ctx.font = 'bold 13px monospace';
-    ctx.fillStyle = '#FF334B';
+    ctx.fillStyle = birthdayActive ? '#D4AF37' : '#FF334B';
     ctx.textAlign = 'center';
     ctx.fillText('✨ SCRATCH WITH FINGER OR CURSOR ✨', canvas.width / 2, canvas.height / 2);
   };
@@ -73,7 +104,7 @@ export default function ScratchCard() {
     initCanvas();
     window.addEventListener('resize', initCanvas);
     return () => window.removeEventListener('resize', initCanvas);
-  }, []);
+  }, [birthdayActive]);
 
   const scratch = (clientX: number, clientY: number) => {
     if (isRevealed) return;
@@ -118,7 +149,7 @@ export default function ScratchCard() {
 
   const resetCard = () => {
     setIsRevealed(false);
-    const randomItem = COMPLIMENTS[Math.floor(Math.random() * COMPLIMENTS.length)];
+    const randomItem = activePool[Math.floor(Math.random() * activePool.length)];
     setCompliment(randomItem);
     setTimeout(initCanvas, 50);
   };
@@ -126,21 +157,21 @@ export default function ScratchCard() {
   return (
     <section className="w-full max-w-xl px-4 py-10 relative z-10 flex flex-col items-center">
       <div className="text-center mb-6 space-y-1">
-        <span className="inline-block text-xs uppercase tracking-[0.35em] text-[#FF334B] font-extrabold px-3 py-1 rounded-full bg-black/70 border border-[#FF334B]/40 backdrop-blur-md shadow-lg">
-          CONFIDENTIAL NOTE
+        <span className={`inline-block text-xs uppercase tracking-[0.35em] ${birthdayActive ? 'text-[#D4AF37] border-[#D4AF37]/40' : 'text-[#FF334B] border-[#FF334B]/40'} font-extrabold px-3 py-1 rounded-full bg-black/70 border backdrop-blur-md shadow-lg`}>
+          {birthdayActive ? '👑 LEVEL 19 VAULT' : 'CONFIDENTIAL NOTE'}
         </span>
         <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
-          Scratch To Reveal<span className="text-[#FF334B]">.</span>
+          Scratch To Reveal<span className={birthdayActive ? 'text-[#D4AF37]' : 'text-[#FF334B]'}>.</span>
         </h2>
         <p className="text-xs sm:text-sm font-medium text-white/90 drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]">
-          A secret truth meant only for you. Scratch off the surface.
+          {birthdayActive ? 'A special 19th birthday message unlocked for you.' : 'A secret truth meant only for you. Scratch off the surface.'}
         </p>
       </div>
 
-      <div className="relative w-full h-56 rounded-3xl bg-[#1A1618] border border-[#FF334B]/50 overflow-hidden shadow-[0_0_35px_rgba(255,51,75,0.2)] flex items-center justify-center p-6 text-center select-none">
+      <div className={`relative w-full h-56 rounded-3xl bg-[#1A1618] border ${birthdayActive ? 'border-[#D4AF37]/50 shadow-[0_0_35px_rgba(212,175,55,0.25)]' : 'border-[#FF334B]/50 shadow-[0_0_35px_rgba(255,51,75,0.2)]'} overflow-hidden flex items-center justify-center p-6 text-center select-none`}>
         {/* Hidden Compliment Underneath */}
         <div className="flex flex-col items-center justify-center space-y-2 max-w-md z-0">
-          <span className="text-xs font-mono uppercase tracking-widest text-[#FF334B] bg-[#FF334B]/10 px-3 py-0.5 rounded-full border border-[#FF334B]/30 font-bold">
+          <span className={`text-xs font-mono uppercase tracking-widest ${birthdayActive ? 'text-[#D4AF37] bg-[#D4AF37]/10 border-[#D4AF37]/30' : 'text-[#FF334B] bg-[#FF334B]/10 border-[#FF334B]/30'} px-3 py-0.5 rounded-full border font-bold`}>
             {compliment.tag}
           </span>
           <p className="text-base sm:text-lg font-bold text-white leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
@@ -187,7 +218,7 @@ export default function ScratchCard() {
         <button
           type="button"
           onClick={resetCard}
-          className="mt-4 px-5 py-2 rounded-full bg-[#1A1618] border border-[#2E2226] hover:border-[#FF334B] text-xs font-mono text-[#D1CBD0] hover:text-[#FF334B] transition-all cursor-pointer shadow-lg animate-in fade-in"
+          className={`mt-4 px-5 py-2 rounded-full bg-[#1A1618] border ${birthdayActive ? 'border-[#3A2E16] hover:border-[#D4AF37] text-[#D1CBD0] hover:text-[#D4AF37]' : 'border-[#2E2226] hover:border-[#FF334B] text-[#D1CBD0] hover:text-[#FF334B]'} text-xs font-mono transition-all cursor-pointer shadow-lg animate-in fade-in`}
         >
           Scratch another note ↺
         </button>

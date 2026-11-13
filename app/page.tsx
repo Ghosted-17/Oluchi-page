@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ArtistsSection from '@/components/ArtistsSection';
 import ConfettiButton, { fireMultiverseConfetti } from '@/components/ConfettiButton';
 import RouletteWheel from '@/components/RouletteWheel';
@@ -240,6 +240,13 @@ function Card({ card }: { card: VersionCard }) {
 export default function Home() {
   const [ribbonClicks, setRibbonClicks] = useState(0);
   const [blaugranaMode, setBlaugranaMode] = useState(false);
+  const [birthdayActive, setBirthdayActive] = useState(false);
+
+  useEffect(() => {
+    // Check if the 24-hour November 13th birthday takeover is live
+    const isBday = localStorage.getItem('oluchi_birthday_active') === 'true';
+    setBirthdayActive(isBday);
+  }, []);
 
   const handleRibbonTap = () => {
     const nextCount = ribbonClicks + 1;
@@ -256,18 +263,23 @@ export default function Home() {
 
   return (
     <PasscodeGate>
-      <main className={`min-h-screen ${blaugranaMode ? 'bg-[#060D1E]' : 'bg-[#0D0B0C]'} text-[#F8F9FA] px-4 py-12 md:px-12 flex flex-col items-center relative overflow-hidden transition-colors duration-1000`}>
+      <main className={`min-h-screen ${blaugranaMode ? 'bg-[#060D1E]' : birthdayActive ? 'bg-[#120E10]' : 'bg-[#0D0B0C]'} text-[#F8F9FA] px-4 py-12 md:px-12 flex flex-col items-center relative overflow-hidden transition-colors duration-1000`}>
         {/* Background Video Slideshow */}
         <AmbientBackground />
 
         {/* Secret Birthday Trigger Popup */}
         <BirthdayPopup />
 
-        {/* Velvet Noir Spotlights */}
+        {/* Velvet Noir & Birthday Gold Spotlights */}
         {blaugranaMode ? (
           <>
             <div className="absolute top-0 left-1/4 w-[500px] h-[400px] bg-[#004D98]/30 blur-[130px] pointer-events-none rounded-full" />
             <div className="absolute top-10 right-1/4 w-[500px] h-[400px] bg-[#A50044]/35 blur-[130px] pointer-events-none rounded-full" />
+          </>
+        ) : birthdayActive ? (
+          <>
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-[#D4AF37]/15 blur-[140px] pointer-events-none rounded-full" />
+            <div className="absolute top-[40%] right-[-10%] w-[450px] h-[450px] bg-[#FF334B]/10 blur-[150px] pointer-events-none rounded-full" />
           </>
         ) : (
           <>
@@ -285,6 +297,11 @@ export default function Home() {
 
         {/* Header */}
         <header className="max-w-4xl text-center mb-10 space-y-3 relative z-10">
+          {birthdayActive && (
+            <span className="inline-block text-[11px] font-mono uppercase tracking-[0.3em] text-[#D4AF37] bg-[#D4AF37]/10 px-4 py-1.5 rounded-full border border-[#D4AF37]/30 font-bold shadow-lg animate-pulse">
+              ✨ Official Level 19 Takeover ✨
+            </span>
+          )}
           <h1 className="text-4xl md:text-5xl font-black tracking-tight select-none text-white drop-shadow-[0_3px_8px_rgba(0,0,0,0.9)]">
             <span
               onClick={handleRibbonTap}
@@ -303,7 +320,7 @@ export default function Home() {
             </span>
           </h1>
           <p className="text-[#F0EAEF] text-sm md:text-base max-w-lg mx-auto font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-            One person, multiple eras. Swipe through to see every side of the story.
+            {birthdayActive ? 'Celebrating 19 years of unmatched energy and elite vibes. Happy Birthday!' : 'One person, multiple eras. Swipe through to see every side of the story.'}
           </p>
         </header>
 

@@ -32,7 +32,13 @@ export default function BirthdayPopup() {
       // Checks if today is November 13th
       const isNov13 = (month === 10 && date === 13); 
 
-      if (!isNov13) return;
+      if (!isNov13) {
+        localStorage.removeItem('oluchi_birthday_active');
+        return;
+      }
+
+      // Activate theme takeover flag for the page
+      localStorage.setItem('oluchi_birthday_active', 'true');
 
       const todayStr = now.toDateString();
 
